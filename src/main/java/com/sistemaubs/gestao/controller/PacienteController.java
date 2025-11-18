@@ -2,6 +2,7 @@ package com.sistemaubs.gestao.controller;
 
 import com.sistemaubs.gestao.model.Paciente;
 import com.sistemaubs.gestao.service.PacienteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class PacienteController {
 
     private final PacienteService pacienteService;
 
+    @Autowired
     public PacienteController(PacienteService pacienteService) {
         this.pacienteService = pacienteService;
     }
@@ -21,7 +23,7 @@ public class PacienteController {
         return pacienteService.listarPacientes();
     }
 
-    @PostMapping
+    @PostMapping()
     public Paciente adicionarPaciente(@RequestBody Paciente paciente) {
         return pacienteService.adicionarPaciente(paciente);
     }
@@ -29,6 +31,11 @@ public class PacienteController {
     @DeleteMapping("/{id}")
     public void removerPaciente(@PathVariable Long id) {
         pacienteService.removerPaciente(id);
+    }
+
+    @GetMapping("/{id}")
+    public Paciente pegarPacienteId(Long id){
+        return pacienteService.pegarPacienteId(id);
     }
 }
 

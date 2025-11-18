@@ -1,6 +1,8 @@
 package com.sistemaubs.gestao.service;
 
+import Repository.PacienteRepository;
 import com.sistemaubs.gestao.model.Paciente;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,20 +10,29 @@ import java.util.List;
 @Service
 public class PacienteService {
 
-    private List<Paciente> pacientes = new ArrayList<>();
+    private final PacienteRepository pacienteRepository;
+
+    public PacienteService(PacienteRepository pacienteRepository) {
+        this.pacienteRepository = pacienteRepository;
+    }
 
     public List<Paciente> listarPacientes() {
-        return pacientes;
+        return pacienteRepository.listarPacientes();
     }
 
     public Paciente adicionarPaciente(Paciente paciente) {
-        pacientes.add(paciente);
-        return paciente;
+        return pacienteRepository.adicionarPaciente(paciente);
+
     }
 
     public void removerPaciente(Long id) {
-        pacientes.removeIf(p -> p.getId().equals(id));
+
+        pacienteRepository.removerPaciente(id);
+    }
+
+    public Paciente pegarPacienteId(Long id){
+        return pacienteRepository.pegarPacienteId(id);
+
     }
 }
-
 

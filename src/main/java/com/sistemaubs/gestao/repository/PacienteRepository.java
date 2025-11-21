@@ -1,16 +1,22 @@
-package com.sistemaubs.gestao.Repository;
+package com.sistemaubs.gestao.repository;
 
 import com.sistemaubs.gestao.model.Paciente;
+import com.sistemaubs.gestao.persistence.JsonFileManager;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Repository
 public class PacienteRepository {
 
-    private List<Paciente> pacientes = new ArrayList<>();
+    private final String CAMINHO_ARQUIVO = "data/pacientes.json";
+
+    private List<Paciente> pacientes;
+
+    public PacienteRepository() {
+        this.pacientes = JsonFileManager.carregarLista(CAMINHO_ARQUIVO, Paciente.class);
+    }
 
     public List<Paciente> listarPacientes() {
         return pacientes;
@@ -18,6 +24,7 @@ public class PacienteRepository {
 
     public Paciente adicionarPaciente(Paciente paciente) {
         pacientes.add(paciente);
+        JsonFileManager.salvarLista(CAMINHO_ARQUIVO, pacientes);
         return paciente;
     }
 
@@ -32,6 +39,7 @@ public class PacienteRepository {
 
     public void removerPaciente(Long id) {
         pacientes.removeIf(p -> p.getId().equals(id));
+        JsonFileManager.salvarLista(CAMINHO_ARQUIVO, pacientes);
     }
 
     public Paciente editarPaciente(Long id, Paciente pacienteEditado) {
@@ -40,6 +48,7 @@ public class PacienteRepository {
                 paciente.setCpf(pacienteEditado.getCpf());
                 paciente.setNome(pacienteEditado.getNome());
                 paciente.setTelefone(pacienteEditado.getTelefone());
+                JsonFileManager.salvarLista(CAMINHO_ARQUIVO, pacientes);
                 return paciente;
             }
         }

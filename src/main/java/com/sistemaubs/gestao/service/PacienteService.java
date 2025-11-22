@@ -1,7 +1,7 @@
 package com.sistemaubs.gestao.service;
 
 
-import com.sistemaubs.gestao.Repository.PacienteRepository;
+import com.sistemaubs.gestao.repository.PacienteRepository;
 import com.sistemaubs.gestao.model.Paciente;
 
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class PacienteService {
         this.pacienteRepository = pacienteRepository;
     }
 
-    public List<Paciente> listarPacientes() {
+    public List<Paciente>   listarPacientes() {
         return pacienteRepository.listarPacientes();
     }
 

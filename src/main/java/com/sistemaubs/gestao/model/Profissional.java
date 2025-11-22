@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 
-
-public class UnidadeBasicaSaude {
+public class Profissional {
     private Long id;
     private String nome;
-    private String endereco;
-    private String telefone;
+    private String especialidade;
+
 }

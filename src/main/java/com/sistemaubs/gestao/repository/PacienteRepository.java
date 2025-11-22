@@ -1,4 +1,4 @@
-package com.sistemaubs.gestao.Repository;
+package com.sistemaubs.gestao.repository;
 
 import com.sistemaubs.gestao.model.Paciente;
 import org.springframework.stereotype.Repository;

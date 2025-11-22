@@ -1,38 +1,42 @@
 package com.sistemaubs.gestao.service;
+
+
+import com.sistemaubs.gestao.repository.ConsultaRepository;
 import com.sistemaubs.gestao.model.Consulta;
+
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class ConsultaService {
 
-    private List<Consulta> consultas = new ArrayList<>();
+    private final ConsultaRepository consultaRepository;
 
-    public List<Consulta> listarConsultas() {
-        return consultas;
+    public ConsultaService(ConsultaRepository consultaRepository) {
+        this.consultaRepository = consultaRepository;
+    }
+
+    public List<Consulta>   listarConsultas() {
+        return consultaRepository.listarConsultas();
     }
 
     public Consulta adicionarConsulta(Consulta consulta) {
-        consultas.add(consulta);
-        return consulta;
+        return consultaRepository.adicionarConsulta(consulta);
+
     }
 
-    public void removerConsulta (Long id){
-        consultas.removeIf(c -> c.getId().equals(id));
+    public void removerConsulta(Long id) {
+
+        consultaRepository.removerConsulta(id);
     }
 
-    public Consulta pegarConsultaId(Long id) {
-        for (Consulta consulta : consultas) {
-            if (Objects.equals(consulta.getId(), id)) {
-                return consulta;
-            }
-        }
-        return null;
+    public Consulta pegarConsultaId(Long id){
+        return consultaRepository.pegarConsultaId(id);
+
+    }
+
+    public Consulta editarConsulta(Long id, Consulta consultaEditada) {
+        return consultaRepository.editarConsulta(id, consultaEditada);
     }
 }
-
-
-
 

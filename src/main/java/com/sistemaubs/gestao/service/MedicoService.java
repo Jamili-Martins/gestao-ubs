@@ -1,6 +1,7 @@
 package com.sistemaubs.gestao.service;
 
 
+import com.sistemaubs.gestao.exception.ProfissionalNaoEncontradoException;
 import com.sistemaubs.gestao.repository.MedicoRepository;
 import com.sistemaubs.gestao.model.Medico;
 
@@ -26,16 +27,31 @@ public class MedicoService {
     }
 
     public void removerMedico(Long id) {
-
+        Medico medico = MedicoRepository.pegarMedicoId(id);
+        if (medico == null) {
+            throw new ProfissionalNaoEncontradoException(
+                    "Médico com ID " + id + " não encontrado"
+            );
+        }
         MedicoRepository.removerMedico(id);
     }
 
     public Medico pegarMedicoId(Long id){
-        return MedicoRepository.pegarMedicoId(id);
+        Medico medico = MedicoRepository.pegarMedicoId(id);
+        if (medico == null) {
+            throw new ProfissionalNaoEncontradoException(
+                    "Médico com ID " + id + " não encontrado");
+        }
+        return medico;
 
     }
 
     public Medico editarMedico(Long id, Medico medicoEditado) {
+        Medico medico = MedicoRepository.pegarMedicoId(id);
+        if (medico == null) {
+            throw new ProfissionalNaoEncontradoException(
+                    "Médico com ID " + id + " não encontrado");
+        }
         return MedicoRepository.editarMedico(id, medicoEditado);
     }
 }

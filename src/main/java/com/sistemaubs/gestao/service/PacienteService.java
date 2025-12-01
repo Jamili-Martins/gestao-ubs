@@ -23,6 +23,8 @@ public class PacienteService {
     }
 
     public Paciente adicionarPaciente(Paciente paciente) {
+        long novoId = gerarNovoId();
+        paciente.setId(novoId);
         return pacienteRepository.adicionarPaciente(paciente);
 
     }
@@ -43,7 +45,7 @@ public class PacienteService {
         if (paciente == null) {
             throw new PacienteNaoEncontradoException("Paciente com ID " + id + " não encontrado");
         }
-        return pacienteRepository.pegarPacienteId(id);
+        return paciente;
 
     }
 
@@ -53,6 +55,20 @@ public class PacienteService {
             throw new PacienteNaoEncontradoException("Paciente com ID " + id + " não encontrado");
         }
         return pacienteRepository.editarPaciente(id, pacienteEditado);
+    }
+
+    private Long gerarNovoId() {
+        List<Paciente> pacientes = pacienteRepository.listarPacientes();
+
+        if (pacientes.isEmpty()) {
+            return 1L;
+        }
+
+        return pacientes.stream()
+                .filter(p -> p.getId() != null)
+                .mapToLong(Paciente::getId)
+                .max()
+                .orElse(0L) + 1;
     }
 }
 

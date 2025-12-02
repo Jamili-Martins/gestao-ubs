@@ -39,6 +39,7 @@ public class MedicoRepository {
             if (Objects.equals(medico.getId(), id)) {
                 medico.setNome(medicoEditado.getNome());
                 medico.setEspecialidade(medicoEditado.getEspecialidade());
+                medico.setCrm(medicoEditado.getCrm());
                 return medico;
             }
         }

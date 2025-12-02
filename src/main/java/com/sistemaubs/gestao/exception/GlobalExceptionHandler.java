@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.time.LocalDateTime;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -54,5 +56,16 @@ public class GlobalExceptionHandler {
                 request.getRequestURI()
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+    }
+
+    @ExceptionHandler(RelatorioInvalidoException.class)
+    public ResponseEntity<ApiError> handleRelatorioInvalido(RelatorioInvalidoException ex, HttpServletRequest request) {
+        ApiError error = new ApiError(
+                HttpStatus.BAD_REQUEST.value(),
+                "RELATORIO_INVALIDO",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -17,6 +16,6 @@ public class Consulta {
     private Long id;
     private Paciente paciente;
     private Medico medico;
-    private LocalTime dataHora;
+    private LocalDateTime dataHora;
     private String observacoes;
 }

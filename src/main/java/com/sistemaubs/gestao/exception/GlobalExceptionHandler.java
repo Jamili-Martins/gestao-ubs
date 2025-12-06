@@ -6,27 +6,66 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.time.LocalDateTime;
+
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiError> handleNotFound(ResourceNotFoundException ex, HttpServletRequest request) {
+    @ExceptionHandler(PacienteNaoEncontradoException.class)
+    public ResponseEntity<ApiError> handlePacienteNaoEncontrado(PacienteNaoEncontradoException ex, HttpServletRequest request) {
         ApiError error = new ApiError(
                 HttpStatus.NOT_FOUND.value(),
-                "NOT_FOUND",
+                "PACIENTE_NAO_ENCONTRADO",
                 ex.getMessage(),
                 request.getRequestURI()
         );
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
+    @ExceptionHandler(ProfissionalNaoEncontradoException.class)
+    public ResponseEntity<ApiError> handleProfissionalNaoEncontrado(ProfissionalNaoEncontradoException ex, HttpServletRequest request) {
+        ApiError error = new ApiError(
+                HttpStatus.NOT_FOUND.value(),
+                "PROFISSIONAL_NAO_ENCONTRADO",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+
+    @ExceptionHandler(HorarioIndisponivelException.class)
+    public ResponseEntity<ApiError> handleHorarioIndisponivel(HorarioIndisponivelException ex, HttpServletRequest request) {
+        ApiError error = new ApiError(
+                HttpStatus.CONFLICT.value(),
+                "HORARIO_INDISPONIVEL",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGenericException(Exception ex, HttpServletRequest request) {
+
+        ex.printStackTrace();
+
         ApiError error = new ApiError(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                "INTERNAL_SERVER_ERROR",
+                "ERRO_INTERNO",
                 ex.getMessage(),
                 request.getRequestURI()
         );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+    }
+
+    @ExceptionHandler(RelatorioInvalidoException.class)
+    public ResponseEntity<ApiError> handleRelatorioInvalido(RelatorioInvalidoException ex, HttpServletRequest request) {
+        ApiError error = new ApiError(
+                HttpStatus.BAD_REQUEST.value(),
+                "RELATORIO_INVALIDO",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 }

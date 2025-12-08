@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/relatorios")
 public class RelatorioController {
@@ -49,14 +50,12 @@ public class RelatorioController {
             );
         }
 
-        // 🚨 Nenhum parâmetro enviado
         if (!temDataUnica && !temIntervalo) {
             throw new RelatorioInvalidoException(
                     "Envie ?data=YYYY-MM-DD ou o intervalo ?dataInicio=YYYY-MM-DD&dataFim=YYYY-MM-DD."
             );
         }
 
-        // ➤ Consulta por data única
         if (temDataUnica) {
             try {
                 LocalDate target = LocalDate.parse(data);
@@ -68,7 +67,6 @@ public class RelatorioController {
             }
         }
 
-        // ➤ Consulta por intervalo de datas
         try {
             LocalDate inicio = LocalDate.parse(dataInicio);
             LocalDate fim = LocalDate.parse(dataFim);

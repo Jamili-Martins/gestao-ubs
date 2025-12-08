@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <title>Relatórios — Gestão UBS</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="d-flex">
+
+    <aside class="sidebar">
+        <div class="logo">Gestão UBS</div>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="index.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+            <a class="nav-link" href="pacientes.html"><i class="bi bi-people"></i> Pacientes</a>
+            <a class="nav-link" href="medicos.html"><i class="bi bi-person-badge"></i> Médicos</a>
+            <a class="nav-link" href="consultas.html"><i class="bi bi-calendar-check"></i> Consultas</a>
+            <a class="nav-link active" href="relatorios.html"><i class="bi bi-bar-chart"></i> Relatórios</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <h1>Relatórios</h1>
+
+        <section class="report-card" id="reportFormCard">
+            <div class="report-row">
+
+                <div class="report-field">
+                    <label>Tipo de relatório</label>
+                    <select id="reportType" class="form-control">
+                        <option value="por-medico">Consultas por Médico</option>
+                        <option value="por-data">Consultas por Data</option>
+                        <option value="por-intervalo">Consultas por Intervalo</option>
+                    </select>
+                </div>
+
+                <div class="report-field" id="medicoField">
+                    <label>Selecione o médico</label>
+                    <select id="medicosSelect" class="form-control">
+                        <option>Carregando...</option>
+                    </select>
+                </div>
+
+                <div class="report-field" id="dataEspecificaField">
+                    <label>Data específica</label>
+                    <input id="dataEspecifica" type="date" class="form-control">
+                </div>
+
+                <div class="report-field d-none" id="inicioField">
+                    <label>Início</label>
+                    <input id="dataInicio" type="date" class="form-control">
+                </div>
+
+                <div class="report-field d-none" id="fimField">
+                    <label>Fim</label>
+                    <input id="dataFim" type="date" class="form-control">
+                </div>
+
+                <div style="display:flex;align-items:flex-end;">
+                    <button id="gerarBtn" class="btn btn-primary">Gerar</button>
+                    <button id="limparBtn" class="btn btn-light">Limpar</button>
+                </div>
+            </div>
+
+            <div class="small-note">
+                Use <strong>Consultas por Médico</strong> para filtrar por profissional.<br>
+                Para <strong>Consultas por Data</strong>, use somente a data específica.<br>
+                Para <strong>Intervalo</strong>, preencha início e fim.
+            </div>
+        </section>
+
+        <section id="results">
+            <div id="message" class="text-danger mt-2"></div>
+            <div id="table-area"></div>
+
+            <div id="chart-area" class="d-none mt-4">
+                <canvas id="reportChart"></canvas>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/relatorios.js"></script>
+</body>
+</html>

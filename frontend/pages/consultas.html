@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"><title>Consultas — Gestão UBS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="d-flex">
+    <aside class="sidebar">
+        <div class="logo">Gestão UBS</div>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="index.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+            <a class="nav-link" href="pacientes.html"><i class="bi bi-people"></i> Pacientes</a>
+            <a class="nav-link" href="medicos.html"><i class="bi bi-person-badge"></i> Médicos</a>
+            <a class="nav-link active" href="consultas.html"><i class="bi bi-calendar-check"></i> Consultas</a>
+            <a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart"></i> Relatórios</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="d-flex justify-content-between">
+            <h1>Consultas</h1>
+            <div>
+                <button class="btn btn-primary" id="btnNovaConsulta">➕ Nova Consulta</button>
+                <button class="btn btn-outline-secondary" id="btnRefreshConsulta">🔄 Atualizar</button>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <div id="msgConsultas" class="mb-2 text-danger"></div>
+                <table class="table" id="tableConsultas">
+                    <thead><tr><th>ID</th><th>Paciente</th><th>Médico</th><th>DataHora</th><th>Observações</th><th>Ações</th></tr></thead>
+                    <tbody><tr><td colspan="6">Carregando...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="modal fade" id="modalConsulta" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formConsulta">
+                <div class="modal-header"><h5 id="modalConsultaTitle">Nova Consulta</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body">
+                    <div id="formConsultaMsg" class="text-danger mb-2"></div>
+                    <div class="mb-2"><label>Paciente</label><select id="cPaciente" class="form-control"></select></div>
+                    <div class="mb-2"><label>Médico</label><select id="cMedico" class="form-control"></select></div>
+                    <div class="mb-2"><label>Data e Hora</label><input id="cDataHora" type="datetime-local" class="form-control"></div>
+                    <div class="mb-2"><label>Observações</label><textarea id="cObs" class="form-control" rows="2"></textarea></div>
+                    <input type="hidden" id="cId">
+                </div>
+                <div class="modal-footer"><button class="btn btn-primary" type="submit">Salvar</button><button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/consultas.js"></script>
+</body>
+</html>

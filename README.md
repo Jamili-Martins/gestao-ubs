@@ -1,117 +1,183 @@
 Sistema de Gestão UBS
 
-Este é um sistema de gestão de Unidade Básica de Saúde (UBS), desenvolvido como projeto da disciplina de Programação Orientada a Objetos (POO).
-O objetivo é aplicar conceitos fundamentais de POO e a arquitetura do Spring Boot para criar uma solução modular, escalável e bem estruturada, incluindo CRUDs completos de Pacientes, Médicos e Consultas.
+Este é um sistema de gestão de Unidade Básica de Saúde (UBS), desenvolvido como projeto da disciplina de Programação Orientada a Objetos (POO) na Universidade de Pernambuco – Campus Garanhuns.
 
-O sistema expõe APIs REST que permitem o gerenciamento de todos os recursos envolvidos no atendimento básico da unidade de saúde.
+O objetivo é aplicar os princípios fundamentais de POO e a arquitetura em camadas do Spring Boot para construir uma aplicação modular, organizada e com responsabilidades bem definidas.
+O sistema disponibiliza uma API REST completa para gerenciamento de Pacientes, Médicos, Consultas e Relatórios.
 
 Funcionalidades:
+Pacientes
+Cadastro completo (criar, listar, editar, excluir)
+Dados: nome, CPF, telefone
+Médicos
+CRUD completo
+Informações: nome, especialidade e CRM
 
-- Cadastro de Pacientes: criação, listagem, atualização e exclusão.
+Consultas
+Criação de consultas vinculando Paciente + Médico
+Verificação automática de conflitos de horário
+Edição e exclusão
+Listagem geral
 
-- Cadastro de Médicos: CRUD completo, com especialidade.
+Relatórios
+Consultas por médico
+Consultas por data específica
+Consultas por intervalo de datas
+Integração com frontend para exibição em tabela e gráficos (Chart.js)
+Tratamento estruturado de exceções
+Exceções personalizadas (PacienteNaoEncontradoException, HorarioIndisponivelException, etc.)
+Responses padronizadas com ApiError
+GlobalExceptionHandler para interceptação centralizada
+Conceitos de POO Aplicados
 
-- Gestão de Consultas: criação de consultas vinculando Paciente + Médico, listagem, edição e exclusão.
+O sistema foi planejado para demonstrar domínio dos pilares da Programação Orientada a Objetos:
 
-- API REST completa: endpoints REST seguindo boas práticas de arquitetura.
+Encapsulamento
+Atributos privados acessados via getters e setters (gerados com Lombok).
 
-- Validações e tratamento de exceções: respostas adequadas para erros de entrada e regras de negócio.
+Herança
+A classe Medico herda de Profissional, aproveitando nome e especialidade.
 
-Conceitos de POO Aplicados:
+Polimorfismo
+O uso de Profissional como tipo genérico permite que futuros profissionais sejam adicionados sem alterar o restante do sistema.
 
-O projeto foi estruturado utilizando os pilares fundamentais da Programação Orientada a Objetos em Java:
-
-- Encapsulamento: uso de atributos privados com getters e setters para controle seguro dos dados.
-- Herança: possibilidade de extensão do modelo (ex.: classe Pessoa → Médico/Paciente, caso esteja na sua modelagem).
-- Polimorfismo: métodos sobrescritos, e separação de responsabilidades via interfaces e abstrações.
-- Abstração: cada classe representa claramente seu papel no domínio (Paciente, Médico, Consulta, Serviço, Repositório, etc.).
-
-Além disso, o sistema utiliza:
-
-- Estruturas de dados: como ArrayList para armazenamento temporário e manipulação de listas.
-- Tratamento de exceções: com try/catch, validações e respostas adequadas via Spring (ResponseEntity e exceções personalizadas).
+Abstração
+Cada classe representa corretamente uma entidade do domínio da UBS.
+Regras de Negócio claro na camada Service
+Validação de horários ocupados
+Garantia de existência de médico/paciente antes de criar consulta
+Geração automática de IDs
 
 Tecnologias Utilizadas:
+Java 17
+Spring Boot
+Spring Web (REST)
+Maven
+Jackson (serialização JSON)
+Lombok
+HTML, CSS, JavaScript
+Bootstrap
+Chart.js
 
-- Java 17+
-- Spring Boot
-- Spring Web (REST)
-- Maven
 
-Requisitos do Sistema
 
-- JDK 17 ou superior
-- Maven instalado
-- IDE recomendada: IntelliJ, VS Code ou Eclipse
+Arquitetura do Sistema
 
-Instalação e Execução:
+O projeto utiliza arquitetura em camadas, separando responsabilidades:
 
-Siga os passos abaixo para clonar o repositório e executar o projeto:
+Controller  → recebe requisições HTTP
+Service     → aplica regras de negócio
+Repository  → manipula listas em memória e persistência
+Persistence → grava e lê arquivos JSON
 
+
+Essa divisão facilita manutenção, testes, expansões e entendimento do fluxo interno da aplicação.
+Persistência em JSON
+O sistema não utiliza banco de dados relacional.
+Todos os dados são armazenados e recuperados por meio de arquivos JSON, utilizando a classe JsonFileManager.
+
+Caminhos dos arquivos
+Consultas: src/main/resources/consultas.json
+Médicos: src/main/resources/data/medicos.json
+Pacientes: data/pacientes.json
+Como funciona a persistência
+Serialização: converte objetos Java em JSON
+Desserialização: converte JSON em objetos Java
+Utiliza ObjectMapper da biblioteca Jackson
+Suporte especial para datas (LocalDateTime) via JavaTimeModule
+Essa solução atende completamente aos objetivos da disciplina, eliminando a necessidade de um banco de dados real.
+
+Instalação e Execução
 1. Clone o repositório
 git clone https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO.git
 cd NOME_DO_REPOSITORIO
 
-Atualize o arquivo src/main/resources/application.properties com suas credenciais:
-
-spring.datasource.url=jdbc:mysql://localhost:3306/gestaoubs
-spring.datasource.username=SEU_USUARIO
-spring.datasource.password=SUA_SENHA
-spring.jpa.hibernate.ddl-auto=update
-
-3. Compile e Execute
+2. Executar o backend
 mvn clean install
 mvn spring-boot:run
 
 
-Ou execute a classe principal pela IDE:
+Ou execute a classe principal:
 
-src/main/java/.../GestaoUbsApplication.java
+src/main/java/.../GestaoApplication.java
 
-Endpoints Principais (CRUD):
+Endpoints da API
 
-- Pacientes
-Método	Endpoint	Descrição
-POST	/pacientes	Criar paciente
-GET	/pacientes	Listar pacientes
-GET	/pacientes/{id}	Buscar por ID
+Pacientes
+Método	Endpoint	Função
+POST	/pacientes	Criar
+GET	/pacientes	Listar
+GET	/pacientes/{id}	Buscar
 PUT	/pacientes/{id}	Atualizar
-DELETE	/pacientes/{id}	Excluir
+DELETE	/pacientes/{id}	Remover
 
-- Médicos
-Método	Endpoint	Descrição
-POST	/medicos	Criar médico
-GET	/medicos	Listar médicos
-GET	/medicos/{id}	Buscar por ID
-PUT	/medicos/{id}	Atualizar
-DELETE	/medicos/{id}	Excluir
+Médicos
+Método	Endpoint	Função
+POST	/medicos	Criar
+GET	/medicos	Listar
+GET	/medicos/{id}	Buscar
+PUT	/medicos/{id}	Editar
+DELETE	/medicos/{id}	Remover
 
-- Consultas
-Método	Endpoint	Descrição
-POST	/consultas	Criar consulta
-GET	/consultas	Listar consultas
-GET	/consultas/{id}	Buscar por ID
-PUT	/consultas/{id}	Atualizar
-DELETE	/consultas/{id}	Excluir
-Demonstração (Opcional)
+Consultas
+Método	Endpoint	Função
+POST	/consultas	Criar
+GET	/consultas	Listar
+GET	/consultas/{id}	Buscar
+PUT	/consultas/{id}	Editar
+DELETE	/consultas/{id}	Remover
 
-Contribuições são bem-vindas.
-Sinta-se à vontade para abrir issues ou enviar pull requests.
+Relatórios
+/relatorios/consultas/medico/{id}
+/relatorios/consultas/data?data=YYYY-MM-DD
+/relatorios/consultas/data?inicio=YYYY-MM-DD&fim=YYYY-MM-DD
+
+
+
+Frontend
+
+O sistema possui um frontend completo desenvolvido em:
+
+HTML
+
+CSS (Bootstrap)
+
+JavaScript
+
+Chart.js
+
+Inclui:
+
+Dashboard
+
+CRUDs completos (Pacientes, Médicos, Consultas)
+
+Relatórios com tabela + gráfico
+
+Sidebar fixa e layout responsivo
+
+Consumo de API via fetch()
+
+
 
 Autores
 
-Jamili Martins de Oliveira / @Jamili-Martins — Líder Técnico e Desenvolvedor
-Maria Clara Gomes da Silva Pollini / @clarap0llini — Deselvolvedor
-Vinícius Rafael Rodrigues Queiroz / @Vinicius-SoftwareEngineer — Deselvolvedor
+Jamili Martins de Oliveira — @Jamili-Martins
+
+Maria Clara Gomes da Silva Pollini — @clarap0llini
+
+Vinícius Rafael Rodrigues Queiroz — @Vinicius-SoftwareEngineer
+
+
 
 Licença
 
-Licenciado sob a licença MIT.
+Licenciado sob a MIT License.
 Consulte o arquivo LICENSE para mais informações.
 
-Este projeto é a culminância da disciplina de Programação II (P2), ministrada pela professora Aeda, e teve como objetivo consolidar os conhecimentos de POO aplicados no desenvolvimento de sistemas Java com Spring Boot.
 
-Agradecimentos:
 
-Spring Boot pela estrutura e praticidade no desenvolvimento.
-Professores e colegas que auxiliaram no processo.
+Agradecimentos
+
+Projeto desenvolvido como culminância da disciplina Programação II (P2), ministrada pela professora Aeda,
+no curso de Engenharia de Software – UPE Campus Garanhuns (2025.2, 2º período).

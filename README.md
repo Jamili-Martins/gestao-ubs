@@ -89,7 +89,7 @@ Essa solução atende completamente aos objetivos da disciplina, eliminando a ne
 
 Instalação e Execução
 1. Clone o repositório
-git clone https://github.com/Jamili-Martins/gestao-ubs/tree/main
+git clone https://github.com/Jamili-Martins/gestao-ubs
 
 2. Executar o backend
 mvn clean install

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Pacientes — Gestão UBS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="d-flex">
+    <aside class="sidebar">
+        <div class="logo">Gestão UBS</div>
+        <nav class="nav flex-column">
+            <a class="nav-link" href="index.html"><i class="bi bi-speedometer2"></i> Dashboard</a>
+            <a class="nav-link active" href="pacientes.html"><i class="bi bi-people"></i> Pacientes</a>
+            <a class="nav-link" href="medicos.html"><i class="bi bi-person-badge"></i> Médicos</a>
+            <a class="nav-link" href="consultas.html"><i class="bi bi-calendar-check"></i> Consultas</a>
+            <a class="nav-link" href="relatorios.html"><i class="bi bi-bar-chart"></i> Relatórios</a>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Pacientes</h1>
+            <div>
+                <button class="btn btn-primary" id="btnNovo">➕ Novo Paciente</button>
+                <button class="btn btn-outline-secondary" id="btnAtualizar">🔄 Atualizar</button>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-body">
+                <div id="msgPacientes" class="mb-2 text-danger"></div>
+
+                <table class="table table-striped" id="tablePacientes">
+                    <thead><tr><th>ID</th><th>Nome</th><th>CPF</th><th>Telefone</th><th>Ações</th></tr></thead>
+                    <tbody><tr><td colspan="5">Carregando...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="modal fade" id="modalPaciente" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formPaciente">
+                <div class="modal-header"><h5 id="modalTitle" class="modal-title">Novo Paciente</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body">
+                    <div id="formMsg" class="text-danger mb-2"></div>
+                    <div class="mb-2"><label>Nome</label><input required class="form-control" id="pNome"></div>
+                    <div class="mb-2"><label>CPF</label><input required class="form-control" id="pCpf"></div>
+                    <div class="mb-2"><label>Telefone</label><input required class="form-control" id="pTelefone"></div>
+                    <input type="hidden" id="pId">
+                </div>
+                <div class="modal-footer"><button type="submit" class="btn btn-primary" id="savePaciente">Salvar</button><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/pacientes.js"></script>
+</body>
+</html>

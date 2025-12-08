@@ -1,0 +1,74 @@
+:root{
+    --sidebar-bg:#0d3b66;
+    --sidebar-accent:#145a99;
+    --card-bg:#fff;
+    --muted:#6b7280;
+}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,Arial,Helvetica,sans-serif;background:#f3f6fb;margin:0;color:#222}
+.d-flex{display:flex}
+
+.sidebar{
+    width:260px;height:100vh;background:var(--sidebar-bg);color:#fff;padding:28px 18px;position:fixed;top:0;left:0;overflow:auto;
+}
+.sidebar .logo{font-weight:700;font-size:20px;margin-bottom:6px}
+.sidebar .nav{margin-top:18px;padding-left:0}
+.sidebar .nav a{display:flex;align-items:center;color:#dfe6ee;padding:10px;border-radius:8px;text-decoration:none;margin-bottom:6px}
+.sidebar .nav a i{font-size:18px;margin-right:12px}
+.sidebar .nav a:hover, .sidebar .nav a.active{background:var(--sidebar-accent);color:#fff}
+
+.main-content{margin-left:260px;padding:28px;width:calc(100% - 260px)}
+.page-title{display:flex;align-items:center;gap:12px;font-weight:700}
+
+.card{background:var(--card-bg);border-radius:12px;box-shadow:0 6px 18px rgba(12,30,60,0.06);padding:18px}
+.stats-card{display:flex;align-items:center;justify-content:space-between;padding:28px}
+.stat-number{font-size:34px;color:#0d6efd;font-weight:700}
+.stat-label{color:var(--muted);margin-top:6px}
+
+.consulta-item{padding:12px;border-radius:10px;background:#fbfdff;margin-bottom:8px;border:1px solid #eef2f7}
+
+.form-inline{display:flex;gap:10px;flex-wrap:wrap}
+.form-inline input, .form-inline select{padding:8px;border-radius:8px;border:1px solid #e6eef6}
+
+@media(max-width:880px){
+    .sidebar{position:relative;width:100%;height:auto}
+    .main-content{margin-left:0;width:100%}
+}
+.content {
+    padding: 28px;
+    margin-left: 240px; /* ajuste se sua sidebar tiver outra largura */
+    transition: margin-left .15s ease;
+}
+
+@media (max-width: 1000px) {
+    .content { margin-left: 0; padding: 16px; }
+}
+
+.report-card {
+    max-width: 1100px;
+    width: 100%;
+    background: #fff;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(10,20,40,0.05);
+    margin: 0 auto;
+}
+
+.report-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+.report-field {
+    min-width: 200px;
+    flex: 1 1 220px;
+}
+
+.d-none { display: none !important; }
+
+#results .report-card { max-width: 1200px; margin: 18px auto; }
+
+.report-card .form-control { min-height: 38px; }
+.report-card .btn { margin-right: 8px; }
